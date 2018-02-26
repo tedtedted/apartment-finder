@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/penguin-128.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listings.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <p>Apts found:</p>
+      {% for n in content%}
+      <ul>
+        <ol><b>name: {{n["name"]}}</b></ol>
+        <ol>posted: {{n["posted"]}}</ol>
+        <ol>price: {{n["price"]}}</ol>
+        <ol><a href=" {{n["link"]}}", target="_blank">link</a></ol>
+        <ol>location: {{n["location"]}}</ol>
+      </ul>
+      {% endfor %}
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+  </html>
