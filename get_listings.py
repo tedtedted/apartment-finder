@@ -4,40 +4,10 @@ import json
 from craigslist import CraigslistHousing
 from dateutil.parser import parse
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean
-from sqlalchemy.orm import sessionmaker
-
 import settings
 
-engine = create_engine('sqlite:///listings.db', echo=False)
-Base = declarative_base()
-
-
-class Listing(Base):
-    """
-    A table to store data on craigslist listings.
-    """
-
-    __tablename__ = 'listings'
-
-    id = Column(Integer, primary_key=True)
-    link = Column(String, unique=True)
-    posted = Column(DateTime)
-    inserted = Column(DateTime) 
-    price = Column(Float)
-    geotag = Column(String)
-    name = Column(String)
-    location = Column(String)
-    cl_id = Column(Integer, unique=True)
-    area = Column(String)
-
-
-Base.metadata.create_all(engine)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+from app import db
+from models import Listings
 
 def get_listings():
 
@@ -54,9 +24,9 @@ def get_listings():
 
     for result in results:
 
-        listing = session.query(Listing).filter_by(cl_id=result["id"]).first()
-        
-        # filter by already seen apts 
+        listing = db.session.query(Listings).filter_by(cl_id=result["id"]).first()
+
+        # filter by already seen apts
         if listing is None:
 
             try:
@@ -64,7 +34,7 @@ def get_listings():
             except:
                 pass
 
-            listing = Listing(
+            listing = Listings(
                 link=result["url"],
                 posted=parse(result["datetime"]),
                 inserted=parse(now),
@@ -73,10 +43,10 @@ def get_listings():
                 location=result["where"],
                 cl_id=result["id"],
                 area=result["area"],
-                )  
+                )
 
-            session.add(listing)
-            session.commit()
+            db.session.add(listing)
+            db.session.commit()
 
             apts_found.append(result)
 

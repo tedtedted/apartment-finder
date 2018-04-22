@@ -1,4 +1,4 @@
-from apt import get_listings
+from get_listings import get_listings
 from mail import send_msg
 
 try:
@@ -16,4 +16,3 @@ try:
 except Exception as e:
 	print("Something went wrong ... ")
 	print(e)
-
