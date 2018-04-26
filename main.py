@@ -1,5 +1,5 @@
-from get_listings import get_listings
-from mail import send_msg
+from services.get_listings import get_listings
+from services.mail import send_msg
 
 try:
 	print("Getting Listings")
