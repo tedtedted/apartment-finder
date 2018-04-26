@@ -8,7 +8,7 @@ try:
 	print(len(listings_now))
 
 	print("sending email")
-	msg_body = f"{len(listings_now)} places found just now"
+	msg_body = f"{len(listings_now)} places found just now \nFind them here: test.tedredington.com:5000/housing"
 
 	send_msg(body=msg_body)
 	print("email sent")
