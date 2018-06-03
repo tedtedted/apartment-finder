@@ -14,10 +14,10 @@ from models import Listings
 def index():
 
     listing = Listings.query.order_by(Listings.posted.desc()).limit(50)
-    
+
     return render_template('listings.html', content=listing)
 
 
 if __name__ == '__main__':
-    # from models import Listings
+
     app.run(host='0.0.0.0')

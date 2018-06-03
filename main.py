@@ -8,9 +8,8 @@ try:
 	print(len(listings_now))
 
 	print("sending email")
-	msg_body = f"{len(listings_now)} places found just now \nFind them here: test.tedredington.com:5000/housing"
 
-	send_msg(body=msg_body)
+	send_msg(number=len(listings_now))
 	print("email sent")
 
 except Exception as e:

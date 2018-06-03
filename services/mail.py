@@ -1,29 +1,24 @@
+import sys
+sys.path.append('..')
+
+from flask import Flask, render_template
+from flask_mail import Mail, Message
+
 from datetime import datetime
-import smtplib
 
-import private
+from config import Config
 
-date = datetime.now().strftime("%B %d, %Y")
+app = Flask(__name__,template_folder='../templates')
+app.config.from_object(Config)
+mail = Mail(app)
+date = datetime.now().strftime('%B %d, %Y')
 
-fromaddr = 'MessageFromTed@gmail.com'
-toaddr = 'tedredington@gmail.com'
+def send_msg(number):
 
-username = private.USERNAME
-password = private.PASSWORD
+    with app.app_context():
 
-def send_msg(body, toaddr=toaddr):
-
-	msg = "\r\n".join([
-		f"From: {fromaddr}",
-		f"To: {toaddr}",
-		f"Subject: Apt list for {date}",
-		"",
-		f"{body}"
-		])
-
-	server = smtplib.SMTP('smtp.gmail.com:587')
-	server.ehlo()
-	server.starttls()
-	server.login(username, password)
-	server.sendmail(fromaddr, toaddr, msg)
-	server.quit()
+        msg = Message(subject=f'Apt list for {date}',
+                      sender=app.config.get("MAIL_USERNAME"),
+                      recipients=["tedredington@gmail.com",],
+                      html=render_template('email.html', number=number))
+        mail.send(msg)
