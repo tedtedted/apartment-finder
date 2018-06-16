@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Listings</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='images/penguin-128.png') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listings.css') }}">
-  </head>
-  <body>
-    <div class="container">
-      <p>Apts found:</p>
-      {% for n in content%}
+{% extends "layout.html" %}
+{% block content %}
+{% for n in content.items%}
+<article class="media content-section">
       <ul>
         <ol><b>name: {{n["name"]}}</b></ol>
         <ol>posted: {{n["posted"]}}</ol>
@@ -17,9 +9,18 @@
         <ol><a href=" {{n["link"]}}", target="_blank">link</a></ol>
         <ol>location: {{n["location"]}}</ol>
       </ul>
-      {% endfor %}
-    </div>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+</article>
+{% endfor %}
+
+{% for page_num in content.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+{% if page_num %}
+  {% if content.page == page_num %}
+    <a class="btn btn-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+ <a class="btn btn-outline-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+  {% endif %}
+{% else %}
+ ...
+{% endif %}
+{% endfor %}
+{% endblock content%}
