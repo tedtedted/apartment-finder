@@ -109,9 +109,15 @@ ENV/
 
 # DBs
 .db
+*.db
+listings.db
 
 # Private
 private.py
+
+# Config
+config.py
+
 
 # Pidfile for gunicorn
 pidfile
