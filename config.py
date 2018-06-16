@@ -12,5 +12,5 @@ class Config(object):
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
-    MAIL_USERNAME = "messagefromted@gmail.com"
-    MAIL_PASSWORD = "S3cur3Password"
+    MAIL_USERNAME = ""
+    MAIL_PASSWORD = ""
