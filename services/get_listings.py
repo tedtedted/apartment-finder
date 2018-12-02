@@ -4,7 +4,7 @@ import json
 from craigslist import CraigslistHousing
 from dateutil.parser import parse
 
-import settings
+import profiles
 
 from app import db
 from models import Listings
@@ -13,10 +13,10 @@ def get_listings():
 
     now = datetime.now().strftime('%B %d %Y %H%M')
 
-    cl = CraigslistHousing(site=settings.CRAIGSLIST_SITE, area=settings.AREAS,
-                       category=settings.CRAIGSLIST_CATEGORY,
-                       filters={'max_price':settings.MAX_PRICE,
-                                'min_price':settings.MIN_PRICE})
+    cl = CraigslistHousing(site=profiles.CRAIGSLIST_SITE, area=profiles.AREAS,
+                       category=profiles.CRAIGSLIST_CATEGORY,
+                       filters={'max_price':profiles.MAX_PRICE,
+                                'min_price':profiles.MIN_PRICE})
 
     results = cl.get_results(sort_by='newest')
 
