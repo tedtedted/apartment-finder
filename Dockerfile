@@ -1,6 +1,6 @@
 FROM python:3.6-alpine
 
-MAINTAINER Ted Redington "tedredington@gmail.com"
+MAINTAINER t r "<email>"
 
 COPY . /app
 WORKDIR /app
